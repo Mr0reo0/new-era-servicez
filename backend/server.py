@@ -16,7 +16,7 @@ from reportlab.lib.pagesizes import letter
 from reportlab.platypus import SimpleDocTemplate, Paragraph, Spacer, Table, TableStyle
 from reportlab.lib.styles import getSampleStyleSheet, ParagraphStyle
 from reportlab.lib import colors
-from emergentintegrations.llm.chat import LlmChat, UserMessage
+import openai
 
 ROOT_DIR = Path(__file__).parent
 load_dotenv(ROOT_DIR / '.env')
@@ -32,8 +32,9 @@ app = FastAPI()
 # Create a router with the /api prefix
 api_router = APIRouter(prefix="/api")
 
-# LLM Key
-EMERGENT_LLM_KEY = os.environ.get('EMERGENT_LLM_KEY', '')
+# OpenAI API Key
+OPENAI_API_KEY = os.environ.get('OPENAI_API_KEY', '')
+openai.api_key = OPENAI_API_KEY
 
 # Configure logging
 logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(name)s - %(levelname)s - %(message)s')
@@ -380,20 +381,24 @@ Return as JSON with keys: partnership_opportunities (array), ecosystem_vision, s
     prompt = layer_prompts.get(data.layer_id, data.prompt)
     
     try:
-        chat = LlmChat(
-            api_key=EMERGENT_LLM_KEY,
-            session_id=f"layer_{user.user_id}_{data.layer_id}",
-            system_message="You are a startup strategy expert. Generate practical, actionable content. Always respond with valid JSON only, no markdown or explanation."
-        ).with_model("openai", "gpt-4o-mini")
+        response = await openai.ChatCompletion.acreate(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": "You are a startup strategy expert. Generate practical, actionable content. Always respond with valid JSON only, no markdown or explanation."},
+                {"role": "user", "content": prompt}
+            ],
+            temperature=0.7,
+            max_tokens=1500
+        )
         
-        response = await chat.send_message(UserMessage(text=prompt))
+        response_text = response.choices[0].message.content
         
         # Try to parse as JSON
         import json
         try:
-            content = json.loads(response)
+            content = json.loads(response_text)
         except:
-            content = {"raw_content": response}
+            content = {"raw_content": response_text}
         
         return {"content": content}
     except Exception as e:
@@ -426,10 +431,17 @@ async def mentor_chat(request: Request, data: ChatRequest):
     history_text = "\n".join([f"{m['role']}: {m['content']}" for m in history[:-1]])
     
     try:
-        chat = LlmChat(
-            api_key=EMERGENT_LLM_KEY,
-            session_id=f"mentor_{user.user_id}",
-            system_message="""You are an expert startup mentor and advisor for New Era Servicez - a Startup Operating System.
+        full_prompt = f"""Previous conversation:
+{history_text}
+
+User's current question: {data.message}
+
+{f"Business context: {data.context}" if data.context else ""}"""
+        
+        response = await openai.ChatCompletion.acreate(
+            model="gpt-4o-mini",
+            messages=[
+                {"role": "system", "content": """You are an expert startup mentor and advisor for New Era Servicez - a Startup Operating System.
 You help founders with:
 - Strategy and positioning
 - Product development
@@ -439,29 +451,26 @@ You help founders with:
 - Scaling and expansion
 
 Be concise, practical, and actionable. Draw from best practices of successful startups.
-If relevant context about their business is provided, reference it in your advice."""
-        ).with_model("openai", "gpt-4o-mini")
+If relevant context about their business is provided, reference it in your advice."""},
+                {"role": "user", "content": full_prompt}
+            ],
+            temperature=0.7,
+            max_tokens=1000
+        )
         
-        full_prompt = f"""Previous conversation:
-{history_text}
-
-User's current question: {data.message}
-
-{f"Business context: {data.context}" if data.context else ""}"""
-        
-        response = await chat.send_message(UserMessage(text=full_prompt))
+        response_text = response.choices[0].message.content
         
         # Save assistant response
         assistant_msg = {
             "message_id": f"msg_{uuid.uuid4().hex[:12]}",
             "user_id": user.user_id,
             "role": "assistant",
-            "content": response,
+            "content": response_text,
             "created_at": datetime.now(timezone.utc).isoformat()
         }
         await db.chat_messages.insert_one(assistant_msg)
         
-        return {"response": response}
+        return {"response": response_text}
     except Exception as e:
         logger.error(f"Mentor chat error: {e}")
         raise HTTPException(status_code=500, detail=str(e))
