@@ -1,0 +1,115 @@
+{
+  "brand_identity": {
+    "name": "New Era Servicez",
+    "metaphor": "The Startup Cockpit",
+    "core_values": ["Systematic", "Accelerated", "Crystal Clear", "Futuristic"],
+    "aesthetic": "Swiss Tech / Light Mode Futurism",
+    "voice": "Authoritative, Precision-Focused, No-Nonsense"
+  },
+  "colors": {
+    "palette": {
+      "primary": {
+        "cyan": "#00CFFF",
+        "violet": "#7A5CFF"
+      },
+      "neutrals": {
+        "porcelain": "#F6F7F8",
+        "onyx": "#0F1113",
+        "graphite": "#5E6366",
+        "white": "#FFFFFF"
+      }
+    },
+    "semantic_mapping": {
+      "background": "bg-[#F6F7F8]",
+      "surface": "bg-white",
+      "surface_contrast": "bg-[#0F1113]",
+      "text_main": "text-[#0F1113]",
+      "text_muted": "text-[#5E6366]",
+      "text_inverted": "text-white",
+      "primary_action": "bg-[#0F1113] text-white hover:bg-[#0F1113]/90",
+      "accent_action": "bg-[#00CFFF] text-[#0F1113] hover:bg-[#00CFFF]/90",
+      "ai_magic": "bg-gradient-to-r from-[#7A5CFF] to-[#00CFFF] text-white",
+      "border_subtle": "border-[#5E6366]/20",
+      "border_strong": "border-[#0F1113]",
+      "success": "text-[#00CFFF]",
+      "error": "text-[#FF4444]"
+    },
+    "gradients": {
+      "hero_glow": "bg-gradient-to-b from-[#F6F7F8] via-[#F6F7F8] to-[#00CFFF]/5",
+      "glass_surface": "bg-white/70 backdrop-blur-xl border border-white/50"
+    }
+  },
+  "typography": {
+    "fonts": {
+      "display": "Neue Haas Grotesk Display Pro, Inter, sans-serif",
+      "body": "Space Grotesk, monospace"
+    },
+    "usage": {
+      "h1": "font-display font-bold text-5xl md:text-7xl tracking-tight text-[#0F1113]",
+      "h2": "font-display font-semibold text-3xl md:text-5xl tracking-tight text-[#0F1113]",
+      "h3": "font-display font-medium text-2xl tracking-tight text-[#0F1113]",
+      "body_large": "font-body text-lg leading-relaxed text-[#5E6366]",
+      "body_default": "font-body text-base leading-relaxed text-[#5E6366]",
+      "caption": "font-body text-sm uppercase tracking-widest text-[#5E6366]",
+      "code": "font-body text-xs text-[#7A5CFF]"
+    },
+    "rules": [
+      "Use Neue Haas Grotesk for all Headings (H1-H6).",
+      "Use Space Grotesk for all body text, labels, and data.",
+      "Space Grotesk must have 'tracking-wide' for small text to ensure legibility.",
+      "Never center text by default. Left align for a technical feel."
+    ]
+  },
+  "layout": {
+    "spacing_scale": {
+      "section_gap": "py-24 md:py-32",
+      "element_gap": "gap-6 md:gap-12",
+      "container_padding": "px-6 md:px-12"
+    },
+    "grids": {
+      "marketing": "grid grid-cols-1 md:grid-cols-12 gap-8",
+      "dashboard": "grid grid-cols-1 md:grid-cols-4 gap-4"
+    },
+    "containers": {
+      "max_width": "max-w-7xl mx-auto"
+    }
+  },
+  "components": {
+    "buttons": {
+      "primary": "h-12 px-8 bg-[#0F1113] text-white font-body font-medium rounded-sm hover:translate-y-[-2px] transition-transform shadow-[4px_4px_0px_0px_rgba(94,99,102,0.2)]",
+      "secondary": "h-12 px-8 bg-white border border-[#0F1113] text-[#0F1113] font-body font-medium rounded-sm hover:bg-[#F6F7F8]",
+      "ghost": "text-[#5E6366] hover:text-[#0F1113] font-body"
+    },
+    "cards": {
+      "base": "bg-white border border-[#5E6366]/10 p-8 rounded-sm shadow-sm hover:shadow-md transition-shadow",
+      "feature": "bg-[#F6F7F8] border border-[#5E6366]/10 p-8 rounded-sm relative overflow-hidden group"
+    },
+    "inputs": {
+      "base": "h-12 bg-white border border-[#5E6366]/20 rounded-sm px-4 font-body focus:border-[#00CFFF] focus:ring-1 focus:ring-[#00CFFF] outline-none transition-all"
+    },
+    "visual_enhancers": {
+      "tracing_beam": "Use a moving gradient border (Cyan to Violet) for active cards.",
+      "grid_background": "Use a subtle SVG grid pattern on the #F6F7F8 background to emphasize the 'Blueprint' theme.",
+      "glass_morphism": "Use backdrop-blur-xl for sticky headers and floating command menus."
+    }
+  },
+  "assets": {
+    "logo_url": "https://customer-assets.emergentagent.com/job_13683fe2-4821-4b38-b5d5-0a1ea3d50b0d/artifacts/vekk1nmh_LogoMark%26Text.png",
+    "images": {
+      "hero_abstract": "https://images.unsplash.com/photo-1754738381739-5efb94a4525b?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHwyfHxhYnN0cmFjdCUyMGZ1dHVyaXN0aWMlMjBibHVlcHJpbnQlMjBzY2hlbWF0aWMlMjBjeWFuJTIwdmlvbGV0fGVufDB8fHx8MTc2NTUwNzAxNHww&ixlib=rb-4.1.0&q=85",
+      "blueprint_bg": "https://images.unsplash.com/photo-1732464508481-6d1f170c73a8?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NTY2NzB8MHwxfHNlYXJjaHwxfHxhYnN0cmFjdCUyMGZ1dHVyaXN0aWMlMjBibHVlcHJpbnQlMjBzY2hlbWF0aWMlMjBjeWFuJTIwdmlvbGV0fGVufDB8fHx8MTc2NTUwNzAxNHww&ixlib=rb-4.1.0&q=85",
+      "team_collaboration": "https://images.pexels.com/photos/7793153/pexels-photo-7793153.jpeg",
+      "workspace_minimal": "https://images.unsplash.com/photo-1711599813756-526d7d788e03?crop=entropy&cs=srgb&fm=jpg&ixid=M3w3NDQ2NDJ8MHwxfHNlYXJjaHwyfHxtaW5pbWFsaXN0JTIwdGVjaCUyMHdvcmtzcGFjZSUyMGRlc2slMjBzZXR1cCUyMGxpZ2h0JTIwbW9kZXxlbnwwfHx8fDE3NjU1MDcwMTh8MA&ixlib=rb-4.1.0&q=85"
+    }
+  },
+  "universal_guidelines": [
+    "DO NOT use generic gradients. Use solid, high-contrast blocks.",
+    "DO NOT use 'Inter' for headings. Use Neue Haas Grotesk.",
+    "DO NOT center-align everything. Use asymmetric grids.",
+    "Ensure all interactive elements have 'data-testid'.",
+    "Use 'sonner' for toasts.",
+    "Use 'lucide-react' for icons.",
+    "Respect the 'Light Mode Futurism' theme: Clean, Bright, Sharp."
+  ],
+  "instructions_to_main_agent": "You are building a Startup Operating System. Think 'Linear meets Apple'. The UI should feel like a precision tool. Use the provided colors strictly. Implement the 'Tracing Beam' effect on the 6 Layers cards. Use the 'Tetris' grid for the landing page and 'Control Room' grid for the dashboard."
+}
