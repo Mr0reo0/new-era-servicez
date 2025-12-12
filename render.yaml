@@ -1,0 +1,31 @@
+services:
+  # Backend API Service
+  - type: web
+    name: new-era-servicez-api
+    env: python
+    region: oregon
+    buildCommand: "pip install -r backend/requirements.txt"
+    startCommand: "cd backend && uvicorn server:app --host 0.0.0.0 --port $PORT"
+    envVars:
+      - key: PYTHON_VERSION
+        value: 3.11.0
+      - key: MONGO_URL
+        sync: false
+      - key: DB_NAME
+        value: new_era_servicez
+      - key: EMERGENT_LLM_KEY
+        sync: false
+      - key: JWT_SECRET
+        generateValue: true
+      - key: GOOGLE_CLIENT_ID
+        sync: false
+      - key: GOOGLE_CLIENT_SECRET
+        sync: false
+      - key: ENVIRONMENT
+        value: production
+
+databases:
+  # MongoDB Database
+  - name: new-era-mongodb
+    databaseName: new_era_servicez
+    user: admin
